@@ -1,0 +1,222 @@
+Tables :
+create table Dealer(
+dlr_id number(3),
+d_name varchar2(20),
+d_location varchar2(15))
+
+create table Product(
+p_id number(4),
+p_name varchar2(20),
+p_sizeid number(5),
+dlr_id number(3))
+
+create table ProductInfo(
+p_sizeid number(5),
+p_size varchar2(5),
+p_color varchar2(7),
+p_price number(5))
+
+create table Dealer1(
+dlr_id number(3),
+d_email varchar2(40))
+
+create table Product1(
+p_id number(4),
+p_name varchar2(20),
+p_price number(5),
+p_sizeid number(5),
+s_tradeNum number(10))
+
+create table Seller(
+s_tradeNum number(10),
+s_name varchar2(20),
+starting_date date,
+p_price number(5))
+
+create table Seller1(
+s_tradeNum number(10),
+s_phone number(11))
+
+create table DeliveryMan(
+dm_id number(3),
+dm_name varchar2(8),
+transp_Num number(10),
+s_tradeNum number(10))
+
+create table Customer(
+c_nid number(8),
+c_name varchar2(20),
+cu_address varchar2(25),
+acc_type varchar2(8))
+
+create table TrackDelivery(
+t_id number(5),
+dm_id number(3),
+c_nid number(8))
+
+Setting the primary keys:
+alter table dealer add constraint cs1 primary key(dlr_id)
+alter table product add constraint cs2 primary key(p_id)
+alter table ProductInfo add constraint cs3 primary key(p_sizeid)
+alter table Dealer1 add constraint cs4 primary key(dlr_id)
+alter table Product1 add constraint cs5 primary key(p_id)
+alter table Seller add constraint cs6 primary key(s_tradeNum)
+alter table Seller1 add constraint cs7 primary key(s_tradeNum)
+alter table DeliveryMan add constraint cs8 primary key(dm_id)
+alter table Customer add constraint cs9 primary key(c_nid)
+alter table TrackDelivery add constraint cs10 primary key(t_id)
+
+Setting the foreign keys:
+alter table product add constraint cs11 foreign key (dlr_id) references Dealer(dlr_id)
+alter table product add constraint cs17 foreign key (p_sizeid) references ProductInfo(p_sizeid)
+alter table product1 add constraint cs12 foreign key (s_tradeNum) references Seller(s_tradeNum)
+alter table product1 add constraint cs13 foreign key (p_sizeid) references ProductInfo(p_sizeid)
+alter table DeliveryMan add constraint cs14 foreign key (s_tradeNum) references Seller(s_tradeNum)
+alter table TrackDelivery add constraint cs15 foreign key (dm_id) references DeliveryMan(dm_id)
+alter table TrackDelivery add constraint cs16 foreign key(c_nid) references Customer(c_nid)
+
+Description of All the tables:
+desc dealer
+desc product
+desc productInfo
+desc dealer1
+desc product1
+desc seller
+desc seller1
+desc deliveryman
+desc customer 
+desc trackdelivery
+
+Inserting the values into the column:
+select *
+from dealer
+Insert into dealer values(101,'AFNAN','DHAKA')
+Insert into dealer values(102,'MONIR','RAJSHAHI')
+Insert into dealer values(103,'REZWAN','CHITTAGONG')
+Insert into dealer values(104,'ABID','SYLHET')
+Insert into dealer values(105,'SHAHRIAR','DINAJPUR')
+select *
+from productInfo
+Insert into productinfo values(401,'M','WHITE',500)
+Insert into productinfo values(402,'XL','BLUE',1000)
+Insert into productinfo values(403,'S','PINK',300)
+Insert into productinfo values(404,'XXL','GREEN',700)
+Insert into productinfo values(405,'L','PURPLE',900)
+select *
+from product
+Insert into product values(901,'T-SHIRT',401,101)
+Insert into product values(902,'PANT',402,101)
+Insert into product values(903,'HOODIE',403,102)
+Insert into product values(904,'JACKET',404,104)
+Insert into product values(905,'SWEATER',405,105)
+select *
+from dealer1
+Insert into dealer1 values(101,'afnan@gmail.com')
+Insert into dealer1 values(102,'monir@gmail.com')
+Insert into dealer1 values(103,'rezwan@gmail.com')
+Insert into dealer1 values(104,'abid@gmail.com')
+Insert into dealer1 values(105,'shahriar@gmail.com')
+select *
+from seller
+Insert into seller values(111222,'NABIL',to_date('22-12-2019','dd-mm-yyyy'),500)
+Insert into seller values(222222,'TAMIM',to_date('12-1-2019','dd-mm-yyyy'),1000)
+Insert into seller values(333222,'MAHIM',to_date('7-2-2020','dd-mm-yyyy'),300)
+Insert into seller values(444222,'ADHIR',to_date('8-12-2020','dd-mm-yyyy'),700)
+Insert into seller values(555222,'NAFIZ',to_date('10-12-2019','dd-mm-yyyy'),900)
+select *
+from product1
+Insert into product1 values(901,'T-SHIRT',500,401,111222)
+Insert into product1 values(902,'PANT',1000,402,222222)
+Insert into product1 values(903,'HOODIE',900,405,555222)
+Insert into product1 values(904,'JACKET',300,403,333222)
+Insert into product1 values(905,'SWEATER',700,404,444222)
+select *
+from seller1
+Insert into seller1 values(111222,01792551141)
+Insert into seller1 values(222222,01779174188)
+Insert into seller1 values(555222,01718529049)
+Insert into seller1 values(333222,01731392620)
+Insert into seller1 values(444222,01303194640)
+select *
+from deliveryman
+Insert into deliveryman values(801,'SHAIKAT',9282,111222)
+Insert into deliveryman values(802,'RIFAT',9292,111222)
+Insert into deliveryman values(803,'AHMED',9393,333222)
+Insert into deliveryman values(804,'EMILY',9494,444222)
+Insert into deliveryman values(805,'TAHMID',9595,222222)
+select *
+from customer
+Insert into customer values(1000,'AYESHA','DHAKA','VIP')
+Insert into customer values(1001,'ARPITA','DHAKA','VIP')
+Insert into customer values(1002,'ADETY','MANIKGANJ','VIP')
+Insert into customer values(1003,'SAZIN','JOYPURHAT','VIP')
+Insert into customer values(1004,'RIYA','TANGAIL','VIP')
+select *
+from trackdelivery
+Insert into trackdelivery values(2000,801,1000)
+Insert into trackdelivery values(2001,801,1001)
+Insert into trackdelivery values(2002,802,1002)
+Insert into trackdelivery values(2003,803,1003)
+Insert into trackdelivery values(2004,804,1004)
+
+1.Write a query to display the information of customers whose name starts with A and address starts with D and their account type
+rename the customer name column to customer and customer address column to Address.
+Answer:
+select initcap(c_name) "Customer Name",initcap(cu_address) "Address",acc_type
+from customer
+where c_name like 'A%' and cu_address like 'D%'
+2.Write a query to display since how many months Mahim has started his business give that column an appropiate name
+also round up the months.
+Answer:
+select s_name,round(months_between(sysdate,starting_date)) "MONTHS"
+from seller
+where s_name='MAHIM'
+3.Write a query to display the total number of sellers needed to add to have 100 sellers in your database also give an appropiate 
+name to that column.
+Answer:
+select 100-count(*) "NUMBER OF SELLERS TO REACH 100"
+from seller
+4.Write a query to display name and the most expensive clothing's price with 15% vat then show all the cloth's price
+with same condition, give the column an appropiate name.
+Answer:
+select p_name,max(p_price)+max(p_price)*0.15
+from product1
+group by p_name
+5.Write a query to display the name and price of the clothing which costs more than Hoodie.
+Answer:
+select p_name,p_price
+from product1
+where p_price>(select p_price
+from product1
+where p_name='HOODIE')
+6.Write a query to display the names and price of those clothings who are priced higher than the lowest
+Answer:
+select p_name,p_price
+from product1
+where p_price>all(select min(p_price)
+from product1)
+7.Write a query display the delivery men names and prices of those who deliveres product which cost more than 800 taka
+Answer:
+select seller.s_tradeNum,deliveryman.dm_name,p_price
+from seller,deliveryman
+where seller.s_tradeNum=deliveryman.s_tradeNum and seller.p_price>800
+8.Write a query to display the productname,product size id,seller name,starting date and price who sells pant and the name starts with T
+Answer:
+select p_name,seller.p_price,p_sizeid,s_name,starting_date
+from seller,product1
+where seller.s_tradeNum=product1.s_tradeNum and s_name like 'T%'
+9.Write a query to create a sequence which will start from 10 will increase by 2 maxvalue is 100 no cycle no cache
+Answer: create sequence sq
+start with 10
+increment by 2
+maxvalue 100
+nocycle 
+nocache
+10. Create a view for products so that the user can only see or read the product id,product name and price.
+Answer: 
+create view ps as
+select p_id,p_name,p_price
+from product1
+with read only
+
+ 
